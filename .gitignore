@@ -1,0 +1,8 @@
+# ide cache
+.idea
+.vs
+.vscode
+CMakeLists.txt.user
+
+# build
+cmake-build-debug
