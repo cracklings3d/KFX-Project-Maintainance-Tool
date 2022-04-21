@@ -8,6 +8,8 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
+
+  connect(m_context.get(), SIGNAL(ProjectFileChanged(QUrl)), this, SLOT(onContextChanged()));
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -28,23 +30,31 @@ void MainWindow::on_LocateProjectButton_clicked() {
   auto urls = ofd.selectedUrls();
   if (urls.isEmpty()) {
     statusBar()->showMessage(tr("Error: no input."));
+    return;
   }
 
-  if (!validateProjectDir(urls[0])){
+  if (!validateProjectDir(urls[0])) {
     statusBar()->showMessage(tr("Error: invalid input."));
+    return;
   }
 
-
+  m_context->setProjectFile(urls[0]);
 }
 
-bool MainWindow::validateProjectDir(const QUrl &url) {
-  return true;
+void MainWindow::onContextChanged() {
+  setWindowTitle(m_context->projectFile().toString());
 }
 
-void UnrealProjectContext::setProjectFile(const QUrl &url) { m_projectFile = url; }
+bool MainWindow::validateProjectDir(const QUrl &url) { return true; }
+
+void UnrealProjectContext::setProjectFile(const QUrl &url) {
+  m_projectFile = url;
+  emit projectFileChanged(url);
+}
 
 const QUrl &UnrealProjectContext::projectFile() const { return m_projectFile; }
 
 void UnrealProjectContext::resetProjectFile() {
-  setProjectFile({}); // TODO: Adapt to use your actual default value
+  setProjectFile({});
+  emit projectFileChanged({});
 }

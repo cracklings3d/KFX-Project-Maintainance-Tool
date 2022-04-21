@@ -3,6 +3,7 @@
 .vs
 .vscode
 CMakeLists.txt.user
+*.autosave
 
 # build
 cmake-build-debug
