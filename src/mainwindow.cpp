@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  connect(m_context.get(), SIGNAL(ProjectFileChanged(QUrl)), this, SLOT(onContextChanged()));
+  connect(m_context, SIGNAL(projectFileChanged(QUrl)), this,
+          SLOT(onNewProject(QUrl)));
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -41,11 +42,22 @@ void MainWindow::on_LocateProjectButton_clicked() {
   m_context->setProjectFile(urls[0]);
 }
 
-void MainWindow::onContextChanged() {
-  setWindowTitle(m_context->projectFile().toString());
+void MainWindow::onNewProject(QUrl new_project) {
+  if (new_project.isEmpty()) {
+    setPage(MainWindowPage::LocateProject);
+    return;
+  }
+
+  setWindowTitle(new_project.fileName(QUrl::ComponentFormattingOption::PrettyDecoded));
+  ui->ProjectRootPath->setText(new_project.path());
+  setPage(MainWindowPage::General);
 }
 
 bool MainWindow::validateProjectDir(const QUrl &url) { return true; }
+
+void MainWindow::setPage(MainWindowPage page) {
+  ui->PageSelector->setCurrentIndex(static_cast<int>(page));
+}
 
 void UnrealProjectContext::setProjectFile(const QUrl &url) {
   m_projectFile = url;

@@ -18,6 +18,8 @@ class UnrealProjectContext : public QObject {
   Q_OBJECT
 
 public:
+  UnrealProjectContext(QObject *parent = nullptr) : QObject(parent) {}
+
   void setProjectFile(const QUrl &url);
   const QUrl &projectFile() const;
   void resetProjectFile();
@@ -29,6 +31,11 @@ signals:
   void projectFileChanged(QUrl);
 };
 
+enum class MainWindowPage {
+  LocateProject = 0,
+  General = 1,
+};
+
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
@@ -38,17 +45,17 @@ public:
 
 signals:
   void userLocatedProject(const QUrl &url);
-//  std::shared_ptr<UnrealProjectContext> contextChanged();
 
 public slots:
   void on_LocateProjectButton_clicked();
-  void onContextChanged();
+  void onNewProject(QUrl new_project);
 
 private:
   Ui::MainWindow *ui;
 
-  std::shared_ptr<UnrealProjectContext> m_context = std::make_shared<UnrealProjectContext>();
+  UnrealProjectContext *m_context = new UnrealProjectContext(this);
 
   bool validateProjectDir(const QUrl &url);
+  void setPage(MainWindowPage page);
 };
 #endif // MAINWINDOW_H
