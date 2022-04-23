@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef KPM_MAINWINDOW_H
+#define KPM_MAINWINDOW_H
 
 #include <memory>
 
@@ -8,6 +8,7 @@
 #include <QQuickView>
 #include <QWidget>
 
+namespace KPM {
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -49,6 +50,7 @@ signals:
 public slots:
   void on_LocateProjectButton_clicked();
   void onNewProject(QUrl new_project);
+  void onOpenSettingsDialog();
 
 private:
   Ui::MainWindow *ui;
@@ -58,4 +60,5 @@ private:
   bool validateProjectDir(const QUrl &url);
   void setPage(MainWindowPage page);
 };
-#endif // MAINWINDOW_H
+} // namespace KPM
+#endif // KPM_MAINWINDOW_H

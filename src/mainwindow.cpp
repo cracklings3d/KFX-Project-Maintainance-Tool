@@ -2,10 +2,10 @@
 #include <iostream>
 #include <qdebug.h>
 
-#include "./ui_mainwindow.h"
-#include "mainwindow.h"
+#include "./ui_MainWindow.h"
+#include "MainWindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+KPM::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
@@ -13,9 +13,9 @@ MainWindow::MainWindow(QWidget *parent)
           SLOT(onNewProject(QUrl)));
 }
 
-MainWindow::~MainWindow() { delete ui; }
+KPM::MainWindow::~MainWindow() { delete ui; }
 
-void MainWindow::on_LocateProjectButton_clicked() {
+void KPM::MainWindow::on_LocateProjectButton_clicked() {
   QFileDialog ofd(this);
   ofd.setFileMode(QFileDialog::AnyFile);
   ofd.setViewMode(QFileDialog::Detail);
@@ -42,7 +42,7 @@ void MainWindow::on_LocateProjectButton_clicked() {
   m_context->setProjectFile(urls[0]);
 }
 
-void MainWindow::onNewProject(QUrl new_project) {
+void KPM::MainWindow::onNewProject(QUrl new_project) {
   if (new_project.isEmpty()) {
     setPage(MainWindowPage::LocateProject);
     return;
@@ -53,20 +53,24 @@ void MainWindow::onNewProject(QUrl new_project) {
   setPage(MainWindowPage::General);
 }
 
-bool MainWindow::validateProjectDir(const QUrl &url) { return true; }
+void KPM::MainWindow::onOpenSettingsDialog() {
+  QDialog dialog;
+}
 
-void MainWindow::setPage(MainWindowPage page) {
+bool KPM::MainWindow::validateProjectDir(const QUrl &url) { return true; }
+
+void KPM::MainWindow::setPage(MainWindowPage page) {
   ui->PageSelector->setCurrentIndex(static_cast<int>(page));
 }
 
-void UnrealProjectContext::setProjectFile(const QUrl &url) {
+void KPM::UnrealProjectContext::setProjectFile(const QUrl &url) {
   m_projectFile = url;
   emit projectFileChanged(url);
 }
 
-const QUrl &UnrealProjectContext::projectFile() const { return m_projectFile; }
+const QUrl &KPM::UnrealProjectContext::projectFile() const { return m_projectFile; }
 
-void UnrealProjectContext::resetProjectFile() {
+void KPM::UnrealProjectContext::resetProjectFile() {
   setProjectFile({});
   emit projectFileChanged({});
 }
