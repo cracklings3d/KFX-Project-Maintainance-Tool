@@ -3,7 +3,9 @@
 
 #include "SvnConf.h"
 
+#include <QStandardPaths>
 #include <QObject>
+#include <QUrl>
 
 namespace KPM {
 class UserConf : public QObject {
@@ -12,6 +14,9 @@ public:
   explicit UserConf(QObject *parent = nullptr);
 
 signals:
+
+public slots:
+  void loadOrCreateUserConf(QUrl url);
 
 private:
   SvnConf m_SvnConf;

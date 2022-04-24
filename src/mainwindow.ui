@@ -29,17 +29,20 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="page_NoProject">
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>1901</width>
-        <height>194</height>
+        <width>414</width>
+        <height>50</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="ProjectLocation" stretch="0,0">
+      <layout class="QHBoxLayout" name="ProjectLocation" stretch="1,0">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetNoConstraint</enum>
+       </property>
        <property name="leftMargin">
         <number>5</number>
        </property>
@@ -54,6 +57,12 @@
        </property>
        <item>
         <widget class="QLineEdit" name="ProjectRootPath">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="font">
           <font>
            <pointsize>14</pointsize>
@@ -107,7 +116,7 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_2"/>
+    <widget class="QWidget" name="page_ProjectHome"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -116,7 +125,7 @@
      <x>0</x>
      <y>0</y>
      <width>1920</width>
-     <height>36</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="font">
