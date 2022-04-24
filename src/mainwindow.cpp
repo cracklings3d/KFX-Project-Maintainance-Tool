@@ -4,6 +4,7 @@
 
 #include "./ui_MainWindow.h"
 #include "MainWindow.h"
+#include "UserConfView.h"
 
 KPM::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -53,8 +54,10 @@ void KPM::MainWindow::onNewProject(QUrl new_project) {
   setPage(MainWindowPage::General);
 }
 
-void KPM::MainWindow::onOpenSettingsDialog() {
-  QDialog dialog;
+void KPM::MainWindow::onOpenUserConfDialog() {
+  statusBar()->showMessage(tr("DEBUG MESSAGE"), 2000);
+  UserConfView userConfView(this);
+  userConfView.exec();
 }
 
 bool KPM::MainWindow::validateProjectDir(const QUrl &url) { return true; }

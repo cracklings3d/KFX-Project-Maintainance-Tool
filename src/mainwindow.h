@@ -50,7 +50,7 @@ signals:
 public slots:
   void on_LocateProjectButton_clicked();
   void onNewProject(QUrl new_project);
-  void onOpenSettingsDialog();
+  void onOpenUserConfDialog();
 
 private:
   Ui::MainWindow *ui;
