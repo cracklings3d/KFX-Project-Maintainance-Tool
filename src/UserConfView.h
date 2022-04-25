@@ -21,6 +21,10 @@ public:
 protected:
   void changeEvent(QEvent *e);
 
+private slots:
+  void saveAndClose();
+  void close();
+
 private:
   Ui::UserConfView *ui;
 

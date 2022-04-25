@@ -66,5 +66,38 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>KPM::UserConfView</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>504</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>KPM::UserConfView</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>504</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
