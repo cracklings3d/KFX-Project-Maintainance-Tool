@@ -18,7 +18,11 @@ void UserConfView::changeEvent(QEvent *e) {
     break;
   default:
     break;
-  }
+    }
+}
+
+void UserConfView::saveAndClose() {
+  close();
 }
 
 } // namespace KPM

@@ -71,7 +71,7 @@
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
    <receiver>KPM::UserConfView</receiver>
-   <slot>close()</slot>
+   <slot>saveAndClose()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>504</x>
@@ -100,4 +100,7 @@
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>saveAndClose()</slot>
+ </slots>
 </ui>

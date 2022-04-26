@@ -23,7 +23,6 @@ protected:
 
 private slots:
   void saveAndClose();
-  void close();
 
 private:
   Ui::UserConfView *ui;
