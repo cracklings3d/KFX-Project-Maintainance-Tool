@@ -10,11 +10,15 @@ KPM::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  connect(m_context, SIGNAL(projectFileChanged(QUrl)), this,
+  connect(m_unrealProjectContext, SIGNAL(projectFileChanged(QUrl)), this,
           SLOT(onNewProject(QUrl)));
 }
 
 KPM::MainWindow::~MainWindow() { delete ui; }
+
+KPM::MainWindowContext *KPM::MainWindow::getContext() {
+  return m_programContext;
+}
 
 void KPM::MainWindow::on_LocateProjectButton_clicked() {
   QFileDialog ofd(this);
@@ -40,7 +44,7 @@ void KPM::MainWindow::on_LocateProjectButton_clicked() {
     return;
   }
 
-  m_context->setProjectFile(urls[0]);
+  m_unrealProjectContext->setProjectFile(urls[0]);
 }
 
 void KPM::MainWindow::onNewProject(QUrl new_project) {
@@ -76,4 +80,8 @@ const QUrl &KPM::UnrealProjectContext::projectFile() const { return m_projectFil
 void KPM::UnrealProjectContext::resetProjectFile() {
   setProjectFile({});
   emit projectFileChanged({});
+}
+
+QStatusBar *KPM::MainWindowContext::statusBar() {
+  return static_cast<QMainWindow *>(parent())->statusBar();
 }

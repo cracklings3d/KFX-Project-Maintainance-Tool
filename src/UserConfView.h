@@ -2,7 +2,9 @@
 #define KPM_USERCONFVIEW_H
 
 #include "UserConf.h"
+#include "QMainWindow"
 
+#include <QStatusBar>
 #include <QDialog>
 
 namespace KPM {
@@ -15,14 +17,17 @@ class UserConfView : public QDialog {
   Q_OBJECT
 
 public:
-  explicit UserConfView(QWidget *parent = nullptr);
+  explicit UserConfView(QMainWindow *parent = nullptr);
   ~UserConfView();
 
 protected:
   void changeEvent(QEvent *e);
 
 private slots:
-  void saveAndClose();
+  void on_buttonBox_accepted();
+  void on_buttonBox_rejected();
+
+  void on_repositoryText_editingFinished();
 
 private:
   Ui::UserConfView *ui;

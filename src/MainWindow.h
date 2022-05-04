@@ -37,12 +37,25 @@ enum class MainWindowPage {
   General = 1,
 };
 
+class MainWindowContext : public QObject {
+  Q_OBJECT
+
+public:
+  MainWindowContext(QMainWindow *parent) { setParent(parent); }
+
+  QStatusBar *statusBar();
+
+private:
+};
+
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+
+  MainWindowContext *getContext();
 
 signals:
   void userLocatedProject(const QUrl &url);
@@ -55,7 +68,8 @@ public slots:
 private:
   Ui::MainWindow *ui;
 
-  UnrealProjectContext *m_context = new UnrealProjectContext(this);
+  UnrealProjectContext *m_unrealProjectContext = new UnrealProjectContext(this);
+  MainWindowContext *m_programContext = new MainWindowContext(this);
 
   bool validateProjectDir(const QUrl &url);
   void setPage(MainWindowPage page);

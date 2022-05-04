@@ -16,8 +16,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Qml Quick QuickWi
 
 set(PROJECT_SOURCES
   src/main.cpp
+  src/PmtConf.h
+
   src/MainWindow.cpp src/MainWindow.h src/MainWindow.ui
-  src/SvnConf.ui src/SvnConf.cpp src/SvnConf.h
+  src/SvnConf.cpp src/SvnConf.h
   src/UserConf.cpp src/UserConf.h
   src/UserConfView.cpp src/UserConfView.h src/UserConfView.ui
 )
