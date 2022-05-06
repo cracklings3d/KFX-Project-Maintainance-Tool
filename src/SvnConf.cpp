@@ -16,19 +16,19 @@ void SvnConf::deserialize(const QJsonObject &json) {
   if (json.contains("Repos")) {
       setRepos(QUrl{json.value("Repos").toString()});
   } else {
-    m_Repos = "";
+    setRepos(m_Repos);
   }
 
   if (json.contains("Username")) {
       setUsername(json.value("Username").toString());
   } else {
-    m_Username = "";
+      setUsername("");
   }
 
   if (json.contains("Password")) {
       setPassword(json.value("Password").toString());
   } else {
-    m_Password = "";
+    setPassword("");
   }
 }
 

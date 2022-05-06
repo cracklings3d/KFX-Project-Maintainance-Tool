@@ -12,7 +12,7 @@ class SvnConf : public PmtConf {
   Q_OBJECT
 
 public:
-  SvnConf(QObject *parent) : PmtConf(parent) {}
+  SvnConf(QObject *parent = nullptr) : PmtConf(parent) {}
 
   virtual QJsonObject serialize() const override;
   virtual void deserialize(const QJsonObject &) override;

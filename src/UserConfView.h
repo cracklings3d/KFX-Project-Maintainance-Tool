@@ -21,13 +21,13 @@ public:
   ~UserConfView();
 
 protected:
-  void changeEvent(QEvent *e);
+//  void changeEvent(QEvent *e);
 
 private slots:
   void on_buttonBox_accepted();
   void on_buttonBox_rejected();
 
-  void on_repositoryText_editingFinished();
+  void onSvnConfChanged(KPM::SvnConf *svn_conf);
 
 private:
   Ui::UserConfView *ui;

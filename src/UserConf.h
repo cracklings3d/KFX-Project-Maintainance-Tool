@@ -21,14 +21,18 @@ public:
   virtual void deserialize(const QJsonObject &url) override;
   virtual QJsonObject serialize() const override;
 
+  const SvnConf *getSvnConf() const;
+  void setSvnConf(const SvnConf *const newSvnConf);
+
 signals:
+  void SvnConfChanged(SvnConf *svn_conf);
 
 public slots:
   void saveUserConf();
   void loadUserConf();
 
 private:
-  SvnConf m_SvnConf;
+  SvnConf *m_SvnConf;
   QString getConfPath() const;
 };
 

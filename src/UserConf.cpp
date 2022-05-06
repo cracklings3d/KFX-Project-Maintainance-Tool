@@ -1,9 +1,8 @@
-#pragma optimize("", off)
-
 #include "UserConf.h"
 
 namespace KPM {
-UserConf::UserConf(QObject *parent) : PmtConf{parent}, m_SvnConf(parent) {}
+UserConf::UserConf(QObject *parent)
+    : PmtConf{parent}, m_SvnConf(new SvnConf(parent)) {}
 
 void UserConf::deserialize(const QJsonObject &json) {
   //  QString path = getConfPath();
@@ -11,7 +10,7 @@ void UserConf::deserialize(const QJsonObject &json) {
 
 QJsonObject UserConf::serialize() const {
   QJsonObject j_conf{};
-  j_conf["SvnConf"] = m_SvnConf.serialize();
+  j_conf["SvnConf"] = getSvnConf()->serialize();
   return j_conf;
 }
 
@@ -32,17 +31,17 @@ void UserConf::loadUserConf() {
   }
   const auto j_svnConf = j_doc["SvnConf"];
   if (!(j_svnConf.isNull() || j_svnConf.isUndefined())) {
-    m_SvnConf.deserialize(j_svnConf.toObject());
+    m_SvnConf->deserialize(j_svnConf.toObject());
   }
 }
 
-const SvnConf &UserConf::SvnConf() const { return m_SvnConf; }
+const SvnConf *UserConf::getSvnConf() const { return m_SvnConf; }
 
-void UserConf::setSvnConf(const SvnConf &newSvnConf) {
-  if (m_SvnConf == newSvnConf)
-    return;
-  m_SvnConf = newSvnConf;
-  emit SvnConfChanged();
+void UserConf::setSvnConf(const SvnConf *const newSvnConf) {
+  m_SvnConf->setRepos(newSvnConf->Repos());
+  m_SvnConf->setUsername(newSvnConf->Username());
+  m_SvnConf->setPassword(newSvnConf->Password());
+  emit SvnConfChanged(m_SvnConf);
 }
 
 QString UserConf::getConfPath() const {
@@ -51,5 +50,3 @@ QString UserConf::getConfPath() const {
 }
 
 } // namespace KPM
-
-#pragma optimize("", on)

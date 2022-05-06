@@ -11,16 +11,16 @@ UserConfView::UserConfView(QMainWindow *parent)
 
 UserConfView::~UserConfView() { delete ui; }
 
-void UserConfView::changeEvent(QEvent *e) {
-  QWidget::changeEvent(e);
-  switch (e->type()) {
-  case QEvent::LanguageChange:
-    ui->retranslateUi(this);
-    break;
-  default:
-    break;
-  }
-}
+//void UserConfView::changeEvent(QEvent *e) {
+//  QWidget::changeEvent(e);
+//  switch (e->type()) {
+//  case QEvent::LanguageChange:
+//    ui->retranslateUi(this);
+//    break;
+//  default:
+//    break;
+//  }
+//}
 
 void UserConfView::on_buttonBox_accepted() {
   m_data->saveUserConf();
@@ -38,8 +38,8 @@ void UserConfView::on_buttonBox_rejected() {
   close();
 }
 
-void UserConfView::on_repositoryText_editingFinished() {
-  m_data.
+void UserConfView::onSvnConfChanged(SvnConf *svn_conf) {
+  m_data->setSvnConf(svn_conf);
 }
 
 } // namespace KPM
