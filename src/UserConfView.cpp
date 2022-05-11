@@ -38,8 +38,8 @@ void UserConfView::on_buttonBox_rejected() {
   close();
 }
 
-void UserConfView::onSvnConfChanged(SvnConf *svn_conf) {
-  m_data->setSvnConf(svn_conf);
+void UserConfView::on_repositoryText_editingFinished() {
+  m_data->svnConf->setRepos(ui->repositoryText->text());
 }
 
 } // namespace KPM

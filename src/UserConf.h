@@ -21,19 +21,17 @@ public:
   virtual void deserialize(const QJsonObject &url) override;
   virtual QJsonObject serialize() const override;
 
-  const SvnConf *getSvnConf() const;
-  void setSvnConf(const SvnConf *const newSvnConf);
+  SvnConf *svnConf;
 
 signals:
-  void SvnConfChanged(SvnConf *svn_conf);
+  void SvnConfChanged(KPM::SvnConf *svn_conf);
 
 public slots:
   void saveUserConf();
   void loadUserConf();
 
 private:
-  SvnConf *m_SvnConf;
-  QString getConfPath() const;
+  QString confPath() const;
 };
 
 } // namespace KPM

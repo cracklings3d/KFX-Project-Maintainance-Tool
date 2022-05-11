@@ -27,7 +27,7 @@ private slots:
   void on_buttonBox_accepted();
   void on_buttonBox_rejected();
 
-  void onSvnConfChanged(KPM::SvnConf *svn_conf);
+  void on_repositoryText_editingFinished();
 
 private:
   Ui::UserConfView *ui;

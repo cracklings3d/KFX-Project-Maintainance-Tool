@@ -1,8 +1,10 @@
+#include <QDir>
+
 #include "UserConf.h"
 
 namespace KPM {
 UserConf::UserConf(QObject *parent)
-    : PmtConf{parent}, m_SvnConf(new SvnConf(parent)) {}
+    : PmtConf{parent}, svnConf(new SvnConf(parent)) {}
 
 void UserConf::deserialize(const QJsonObject &json) {
   //  QString path = getConfPath();
@@ -10,43 +12,44 @@ void UserConf::deserialize(const QJsonObject &json) {
 
 QJsonObject UserConf::serialize() const {
   QJsonObject j_conf{};
-  j_conf["SvnConf"] = getSvnConf()->serialize();
+  j_conf["SvnConf"] = svnConf->serialize();
   return j_conf;
 }
 
 void UserConf::saveUserConf() {
   QJsonObject j_obj = serialize();
   QByteArray j_buf = QJsonDocument{j_obj}.toJson(QJsonDocument::Compact);
-  QFile f{getConfPath()};
-  f.open(QFile::WriteOnly);
-  f.write(j_buf);
+  const QString conf_path = confPath();
+  QFile f{conf_path};
+  f.open(QIODevice::OpenModeFlag::ReadWrite);
+  if (f.isOpen()) {
+    f.write(j_buf);
+    const auto err = f.errorString();
+    f.close();
+  }
 }
 
 void UserConf::loadUserConf() {
-  QFile f{getConfPath()};
-  f.open(QFile::OpenModeFlag::ExistingOnly);
+  QFile f{confPath()};
+  f.open(QIODevice::ExistingOnly);
   QJsonDocument j_doc;
   if (f.isOpen()) {
     j_doc = j_doc.fromJson(f.readAll());
   }
   const auto j_svnConf = j_doc["SvnConf"];
   if (!(j_svnConf.isNull() || j_svnConf.isUndefined())) {
-    m_SvnConf->deserialize(j_svnConf.toObject());
+    svnConf->deserialize(j_svnConf.toObject());
   }
 }
 
-const SvnConf *UserConf::getSvnConf() const { return m_SvnConf; }
-
-void UserConf::setSvnConf(const SvnConf *const newSvnConf) {
-  m_SvnConf->setRepos(newSvnConf->Repos());
-  m_SvnConf->setUsername(newSvnConf->Username());
-  m_SvnConf->setPassword(newSvnConf->Password());
-  emit SvnConfChanged(m_SvnConf);
-}
-
-QString UserConf::getConfPath() const {
-  return QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                "engine-install.conf");
+QString UserConf::confPath() const {
+  QDir app_data_dir =
+      QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)[0];
+  if (!app_data_dir.exists()) {
+    app_data_dir.mkpath(".");
+  }
+  return QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)[0] +
+         "/engine-install.conf";
 }
 
 } // namespace KPM
