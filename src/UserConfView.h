@@ -33,6 +33,8 @@ private:
   Ui::UserConfView *ui;
 
   UserConf *m_data;
+
+  void syncData();
 };
 
 } // namespace KPM

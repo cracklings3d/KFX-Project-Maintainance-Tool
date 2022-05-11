@@ -21,21 +21,20 @@ void UserConf::saveUserConf() {
   QByteArray j_buf = QJsonDocument{j_obj}.toJson(QJsonDocument::Compact);
   const QString conf_path = confPath();
   QFile f{conf_path};
-  f.open(QIODevice::OpenModeFlag::ReadWrite);
-  if (f.isOpen()) {
-    f.write(j_buf);
-    const auto err = f.errorString();
-    f.close();
-  }
+  f.open(QIODevice::OpenModeFlag::WriteOnly);
+  assert(f.isOpen());
+  f.write(j_buf);
+  f.close();
 }
 
 void UserConf::loadUserConf() {
   QFile f{confPath()};
-  f.open(QIODevice::ExistingOnly);
+  f.open(QIODevice::OpenModeFlag::ReadOnly);
+
   QJsonDocument j_doc;
-  if (f.isOpen()) {
-    j_doc = j_doc.fromJson(f.readAll());
-  }
+  assert(f.isOpen());
+
+  j_doc = j_doc.fromJson(f.readAll());
   const auto j_svnConf = j_doc["SvnConf"];
   if (!(j_svnConf.isNull() || j_svnConf.isUndefined())) {
     svnConf->deserialize(j_svnConf.toObject());
@@ -49,7 +48,7 @@ QString UserConf::confPath() const {
     app_data_dir.mkpath(".");
   }
   return QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)[0] +
-         "/engine-install.conf";
+         "/engine-install.conf.json";
 }
 
 } // namespace KPM

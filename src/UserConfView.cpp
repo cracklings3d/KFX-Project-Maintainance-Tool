@@ -7,6 +7,7 @@ UserConfView::UserConfView(QMainWindow *parent)
     : QDialog(parent), ui(new Ui::UserConfView), m_data(new UserConf(parent)) {
   ui->setupUi(this);
   m_data->loadUserConf();
+  syncData();
 }
 
 UserConfView::~UserConfView() { delete ui; }
@@ -40,6 +41,14 @@ void UserConfView::on_buttonBox_rejected() {
 
 void UserConfView::on_repositoryText_editingFinished() {
   m_data->svnConf->setRepos(ui->repositoryText->text());
+}
+
+void UserConfView::syncData() {
+  assert(m_data);
+
+  ui->repositoryText->setText(m_data->svnConf->Repos().toString());
+  ui->usernameText->setText(m_data->svnConf->Username());
+  ui->passwordText->setText(m_data->svnConf->Password());
 }
 
 } // namespace KPM
