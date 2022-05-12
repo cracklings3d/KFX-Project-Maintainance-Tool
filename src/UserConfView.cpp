@@ -39,16 +39,28 @@ void UserConfView::on_buttonBox_rejected() {
   close();
 }
 
-void UserConfView::on_repositoryText_editingFinished() {
-  m_data->svnConf->setRepos(ui->repositoryText->text());
-}
-
 void UserConfView::syncData() {
   assert(m_data);
 
-  ui->repositoryText->setText(m_data->svnConf->Repos().toString());
+  ui->projectPluginReposText->setText(m_data->svnConf->ProjectPluginRepos().toString());
+  ui->enginePluginReposText->setText(m_data->svnConf->EnginePluginRepos().toString());
   ui->usernameText->setText(m_data->svnConf->Username());
   ui->passwordText->setText(m_data->svnConf->Password());
 }
 
+void UserConfView::on_enginePluginReposText_editingFinished() {
+  m_data->svnConf->setEnginePluginRepos(ui->enginePluginReposText->text());
+}
+
+void UserConfView::on_projectPluginReposText_editingFinished() {
+  m_data->svnConf->setProjectPluginRepos(ui->projectPluginReposText->text());
+}
+
+void UserConfView::on_usernameText_editingFinished() {
+  m_data->svnConf->setUsername(ui->usernameText->text());
+}
+
+void UserConfView::on_passwordText_editingFinished() {
+  m_data->svnConf->setPassword(ui->passwordText->text());
+}
 } // namespace KPM

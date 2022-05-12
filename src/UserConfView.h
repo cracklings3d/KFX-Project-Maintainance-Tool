@@ -27,7 +27,10 @@ private slots:
   void on_buttonBox_accepted();
   void on_buttonBox_rejected();
 
-  void on_repositoryText_editingFinished();
+  void on_enginePluginReposText_editingFinished();
+  void on_projectPluginReposText_editingFinished();
+  void on_usernameText_editingFinished();
+  void on_passwordText_editingFinished();
 
 private:
   Ui::UserConfView *ui;

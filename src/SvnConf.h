@@ -17,8 +17,11 @@ public:
   virtual QJsonObject serialize() const override;
   virtual void deserialize(const QJsonObject &) override;
 
-  const QUrl &Repos() const;
-  void setRepos(const QUrl &newRepos);
+  const QUrl &EnginePluginRepos() const;
+  void setEnginePluginRepos(const QUrl &newEnginePluginRepos);
+
+  const QUrl &ProjectPluginRepos() const;
+  void setProjectPluginRepos(const QUrl &newProjectPluginRepos);
 
   const QString &Username() const;
   void setUsername(const QString &newUsername);
@@ -27,15 +30,19 @@ public:
   void setPassword(const QString &newPassword);
 
 signals:
-  void ReposChanged();
+  void EnginePluginReposChanged();
+  void ProjectPluginReposChanged();
   void UsernameChanged();
   void PasswordChanged();
 
 private:
-  QUrl m_Repos;
+  QUrl m_EnginePluginRepos;
+  QUrl m_ProjectPluginRepos;
   QString m_Username;
   QString m_Password;
-  Q_PROPERTY(QUrl Repos READ Repos WRITE setRepos NOTIFY ReposChanged)
+
+  Q_PROPERTY(QUrl EnginePluginRepos READ EnginePluginRepos WRITE setEnginePluginRepos NOTIFY EnginePluginReposChanged)
+  Q_PROPERTY(QUrl ProjectPluginRepos READ ProjectPluginRepos WRITE setProjectPluginRepos NOTIFY ProjectPluginReposChanged)
   Q_PROPERTY(QString Username READ Username WRITE setUsername NOTIFY UsernameChanged)
   Q_PROPERTY(QString Password READ Password WRITE setPassword NOTIFY PasswordChanged)
 };
