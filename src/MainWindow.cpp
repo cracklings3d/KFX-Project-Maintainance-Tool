@@ -54,7 +54,6 @@ void KPM::MainWindow::onNewProject(QUrl new_project) {
   }
 
   setWindowTitle(new_project.fileName(QUrl::ComponentFormattingOption::PrettyDecoded));
-  ui->ProjectRootPath->setText(new_project.path());
   setPage(MainWindowPage::General);
 }
 

@@ -22,6 +22,7 @@ set(PROJECT_SOURCES
   src/SvnConf.cpp src/SvnConf.h
   src/UserConf.cpp src/UserConf.h
   src/UserConfView.cpp src/UserConfView.h src/UserConfView.ui
+  src/ProjConf.cpp src/ProjConf.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
