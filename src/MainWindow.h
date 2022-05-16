@@ -8,6 +8,8 @@
 #include <QQuickView>
 #include <QWidget>
 
+#include "UnrealProjectContext.h"
+
 namespace KPM {
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,33 +17,16 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-class UnrealProjectContext : public QObject {
-  Q_OBJECT
-
-public:
-  UnrealProjectContext(QObject *parent = nullptr) : QObject(parent) {}
-
-  void setProjectFile(const QUrl &url);
-  const QUrl &projectFile() const;
-  void resetProjectFile();
-
-private:
-  QUrl m_projectFile;
-
-signals:
-  void projectFileChanged(QUrl);
-};
-
 enum class MainWindowPage {
   LocateProject = 0,
   General = 1,
 };
 
-class MainWindowContext : public QObject {
+class ProgramContext : public QObject {
   Q_OBJECT
 
 public:
-  MainWindowContext(QMainWindow *parent) { setParent(parent); }
+  ProgramContext(QMainWindow *parent) { setParent(parent); }
 
   QStatusBar *statusBar();
 
@@ -55,7 +40,7 @@ public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
-  MainWindowContext *getContext();
+  ProgramContext *getContext();
 
 signals:
   void userLocatedProject(const QUrl &url);
@@ -69,7 +54,7 @@ private:
   Ui::MainWindow *ui;
 
   UnrealProjectContext *m_unrealProjectContext = new UnrealProjectContext(this);
-  MainWindowContext *m_programContext = new MainWindowContext(this);
+  ProgramContext *m_programContext = new ProgramContext(this);
 
   bool validateProjectDir(const QUrl &url);
   void setPage(MainWindowPage page);

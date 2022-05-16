@@ -2,9 +2,12 @@
 #define KPM_PROJCONF_H
 
 #include <QObject>
+#include "PmtConf.h"
 
 namespace KPM {
-class ProjConf : public QObject {
+class UserConf;
+
+class ProjConf : public PmtConf {
   Q_OBJECT
 
 public:
@@ -14,6 +17,7 @@ public:
 protected:
 
 private:
+  UserConf *m_userConf;
 };
 
 

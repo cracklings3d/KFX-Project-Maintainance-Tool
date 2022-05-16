@@ -23,6 +23,7 @@ set(PROJECT_SOURCES
   src/UserConf.cpp src/UserConf.h
   src/UserConfView.cpp src/UserConfView.h src/UserConfView.ui
   src/ProjConf.cpp src/ProjConf.h
+  src/UnrealProjectContext.cpp src/UnrealProjectContext.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

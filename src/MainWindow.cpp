@@ -16,7 +16,7 @@ KPM::MainWindow::MainWindow(QWidget *parent)
 
 KPM::MainWindow::~MainWindow() { delete ui; }
 
-KPM::MainWindowContext *KPM::MainWindow::getContext() {
+KPM::ProgramContext *KPM::MainWindow::getContext() {
   return m_programContext;
 }
 
@@ -69,18 +69,6 @@ void KPM::MainWindow::setPage(MainWindowPage page) {
   ui->PageSelector->setCurrentIndex(static_cast<int>(page));
 }
 
-void KPM::UnrealProjectContext::setProjectFile(const QUrl &url) {
-  m_projectFile = url;
-  emit projectFileChanged(url);
-}
-
-const QUrl &KPM::UnrealProjectContext::projectFile() const { return m_projectFile; }
-
-void KPM::UnrealProjectContext::resetProjectFile() {
-  setProjectFile({});
-  emit projectFileChanged({});
-}
-
-QStatusBar *KPM::MainWindowContext::statusBar() {
+QStatusBar *KPM::ProgramContext::statusBar() {
   return static_cast<QMainWindow *>(parent())->statusBar();
 }
