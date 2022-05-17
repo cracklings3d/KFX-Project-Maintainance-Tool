@@ -50,6 +50,8 @@ public slots:
   void onNewProject(QUrl new_project);
   void onOpenUserConfDialog();
 
+  void onUpdateUnrealProject(KPM::UnrealProjectContext *desc);
+
 private:
   Ui::MainWindow *ui;
 
@@ -58,6 +60,8 @@ private:
 
   bool validateProjectDir(const QUrl &url);
   void setPage(MainWindowPage page);
+
+  void updateGeneralTab();
 };
 } // namespace KPM
 #endif // KPM_MAINWINDOW_H

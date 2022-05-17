@@ -5,6 +5,7 @@
 #include "./ui_MainWindow.h"
 #include "MainWindow.h"
 #include "UserConfView.h"
+#include "src/UnrealProjectContext.h"
 
 KPM::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -55,6 +56,8 @@ void KPM::MainWindow::onNewProject(QUrl new_project) {
 
   setWindowTitle(new_project.fileName(QUrl::ComponentFormattingOption::PrettyDecoded));
   setPage(MainWindowPage::General);
+
+  updateGeneralTab();
 }
 
 void KPM::MainWindow::onOpenUserConfDialog() {
@@ -63,10 +66,28 @@ void KPM::MainWindow::onOpenUserConfDialog() {
   userConfView.exec();
 }
 
+void KPM::MainWindow::onUpdateUnrealProject(KPM::UnrealProjectContext *context) {
+  auto s = context->serializeDescriptor();
+  // TODO
+  // TODO
+  // TODO
+}
+
 bool KPM::MainWindow::validateProjectDir(const QUrl &url) { return true; }
 
 void KPM::MainWindow::setPage(MainWindowPage page) {
   ui->PageSelector->setCurrentIndex(static_cast<int>(page));
+}
+
+void KPM::MainWindow::updateGeneralTab() {
+  auto desc = m_unrealProjectContext->getProjectDescriptor();
+
+  ui->categoryEdit->setEditText(desc->category);
+  ui->descriptionEdit->setPlainText(desc->description);
+  ui->fileVersionText->setNum(desc->fileVersion);
+  ui->engineAssiciationEdit->addItem("4.27");
+  ui->engineAssiciationEdit->addItem("5.0");
+  ui->engineAssiciationEdit->setCurrentText("4.27");
 }
 
 QStatusBar *KPM::ProgramContext::statusBar() {

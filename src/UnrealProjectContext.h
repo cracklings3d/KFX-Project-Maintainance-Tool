@@ -1,6 +1,7 @@
 #ifndef KPM_UNREALPROJECTCONTEXT_H
 #define KPM_UNREALPROJECTCONTEXT_H
 
+#include <QJsonDocument>
 #include <QObject>
 #include <QUrl>
 #include <QVector>
@@ -33,7 +34,7 @@ struct UnrealPluginDescriptor {
   QString name;
   bool enabled;
   QVector<UnrealPlatform> supportedTargetPlatforms;
-  QString MarketplaceURL;
+  QString marketplaceURL;
 };
 
 struct UnrealProjectDescriptor {
@@ -56,6 +57,9 @@ public:
   const QUrl &projectFile() const;
   void resetProjectFile();
 
+  UnrealProjectDescriptor *getProjectDescriptor();
+  QByteArray serializeDescriptor();
+
 signals:
   void projectFileChanged(QUrl);
 
@@ -63,8 +67,16 @@ private:
   QUrl m_projectFile;
   UnrealProjectDescriptor m_projectDescriptor;
 
-  void parseProject();
+  QJsonDocument m_descriptorCache;
 
+  void parseDescriptor();
+
+};
+
+class Utils {
+public:
+  static QString toString(const UnrealModuleLoadingPhase &v);
+  static QString toString(const UnrealModuleType &v);
 };
 } // namespace KPM
 

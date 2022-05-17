@@ -1,6 +1,5 @@
 #include <QFile>
 #include <QJsonArray>
-#include <QJsonDocument>
 #include <QJsonObject>
 
 #include "UnrealProjectContext.h"
@@ -9,7 +8,7 @@ void KPM::UnrealProjectContext::setProjectFile(const QUrl &url) {
   m_projectFile = url;
   if (!url.isLocalFile() || !url.isValid())
     return;
-  parseProject();
+  parseDescriptor();
   emit projectFileChanged(url);
 }
 
@@ -20,7 +19,39 @@ void KPM::UnrealProjectContext::resetProjectFile() {
   emit projectFileChanged({});
 }
 
-void KPM::UnrealProjectContext::parseProject() {
+KPM::UnrealProjectDescriptor *
+KPM::UnrealProjectContext::getProjectDescriptor() {
+  return &m_projectDescriptor;
+}
+
+QByteArray KPM::UnrealProjectContext::serializeDescriptor() {
+  QJsonDocument j;
+  QJsonObject j_root {};
+  j_root["Category"] =  m_projectDescriptor.category;
+  j_root["FileVersion"] = m_projectDescriptor.fileVersion;
+  j_root["EngineAssociation"] = m_projectDescriptor.engineAssociation.toString();
+  j_root["Description"] = m_projectDescriptor.description;
+  j_root["Modules"] = QJsonArray{};
+  j_root["Plugins"] = QJsonArray{};
+  for (const auto &module : m_projectDescriptor.modules) {
+    QJsonObject j_module;
+    j_module["Type"] = module.name;
+    j_module["Type"] = Utils::toString(module.type);
+    j_module["LoadingPhase"] = Utils::toString(module.loadingPhase);
+    j_root["Modules"].toArray().push_back(j_module);
+  }
+  for (const auto &plugin : m_projectDescriptor.plugins) {
+    QJsonObject j_plugin;
+    j_plugin["Name"] = plugin.name;
+    j_plugin["Enabled"] = plugin.enabled;
+//    j_plugin["SupportedTargetPlatforms"] = plugin.supportedTargetPlatforms;
+    j_plugin["MarketplaceURL"] = plugin.marketplaceURL;
+  }
+  j.setObject(j_root);
+  return j.toJson();
+}
+
+void KPM::UnrealProjectContext::parseDescriptor() {
   QFile f {m_projectFile.toLocalFile()};
   f.open(QFile::OpenModeFlag::ReadOnly);
   assert(f.isOpen());
@@ -58,5 +89,21 @@ void KPM::UnrealProjectContext::parseProject() {
     plugin.name = j_plugin.toObject()["Name"].toString();
 
     m_projectDescriptor.plugins.push_back(plugin);
+  }
+}
+
+QString KPM::Utils::toString(const UnrealModuleLoadingPhase &v) {
+  switch (v) {
+    case KPM::UnrealModuleLoadingPhase::Default:
+      return "Default";
+  }
+}
+
+QString KPM::Utils::toString(const UnrealModuleType &v) {
+  switch (v) {
+  case KPM::UnrealModuleType::Developer:
+    return "Developer";
+  case KPM::UnrealModuleType::Runtime:
+    return "Runtime";
   }
 }
