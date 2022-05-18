@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
   src/UserConfView.cpp src/UserConfView.h src/UserConfView.ui
   src/ProjConf.cpp src/ProjConf.h
   src/UnrealProjectContext.cpp src/UnrealProjectContext.h
+  src/UnrealProjectPluginView.cpp src/UnrealProjectPluginView.h src/UnrealProjectPluginView.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

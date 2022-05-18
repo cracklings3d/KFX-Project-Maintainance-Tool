@@ -51,6 +51,10 @@ QByteArray KPM::UnrealProjectContext::serializeDescriptor() {
   return j.toJson();
 }
 
+void KPM::UnrealProjectContext::testFunc() {
+  emit log("SLKDJFLSDKFHKLAJHS");
+}
+
 void KPM::UnrealProjectContext::parseDescriptor() {
   QFile f {m_projectFile.toLocalFile()};
   f.open(QFile::OpenModeFlag::ReadOnly);
@@ -94,8 +98,10 @@ void KPM::UnrealProjectContext::parseDescriptor() {
 
 QString KPM::Utils::toString(const UnrealModuleLoadingPhase &v) {
   switch (v) {
-    case KPM::UnrealModuleLoadingPhase::Default:
-      return "Default";
+  case KPM::UnrealModuleLoadingPhase::Default:
+    return "Default";
+  default:
+    return "";
   }
 }
 
@@ -105,5 +111,7 @@ QString KPM::Utils::toString(const UnrealModuleType &v) {
     return "Developer";
   case KPM::UnrealModuleType::Runtime:
     return "Runtime";
+  default:
+    return "";
   }
 }

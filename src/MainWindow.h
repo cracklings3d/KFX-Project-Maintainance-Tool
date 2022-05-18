@@ -46,11 +46,15 @@ signals:
   void userLocatedProject(const QUrl &url);
 
 public slots:
+  void onLog(QString);
   void on_LocateProjectButton_clicked();
   void onNewProject(QUrl new_project);
   void onOpenUserConfDialog();
 
   void onUpdateUnrealProject(KPM::UnrealProjectContext *desc);
+
+  // Project plugins
+  void onProjectPluginsTestSlot();
 
 private:
   Ui::MainWindow *ui;

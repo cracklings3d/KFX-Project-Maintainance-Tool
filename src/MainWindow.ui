@@ -29,7 +29,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_NoProject">
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -98,7 +98,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tabGeneral">
            <attribute name="title">
@@ -175,10 +175,37 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="tab_2">
+          <widget class="QWidget" name="tagPlugins">
            <attribute name="title">
             <string>Plugins</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="KPM::UnrealProjectPluginView" name="tagPluginsDummy" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QPushButton" name="pushButton">
+                 <property name="text">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -238,6 +265,17 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPM::UnrealProjectPluginView</class>
+   <extends>QWidget</extends>
+   <header>UnrealProjectPluginView.h</header>
+   <container>1</container>
+   <slots>
+    <signal>buttonPress()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -256,8 +294,41 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tagPluginsDummy</sender>
+   <signal>buttonPress()</signal>
+   <receiver>KPM::MainWindow</receiver>
+   <slot>onProjectPluginsTestSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>705</x>
+     <y>400</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>804</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>KPM::MainWindow</receiver>
+   <slot>onProjectPluginsTestSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>847</x>
+     <y>558</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1060</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onOpenUserConfDialog()</slot>
+  <slot>onProjectPluginsTestSlot()</slot>
  </slots>
 </ui>

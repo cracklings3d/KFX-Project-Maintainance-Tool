@@ -7,18 +7,29 @@
 #include "UserConfView.h"
 #include "src/UnrealProjectContext.h"
 
+#include "ui_UnrealProjectPluginView.h"
+
+
 KPM::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
   connect(m_unrealProjectContext, SIGNAL(projectFileChanged(QUrl)), this,
           SLOT(onNewProject(QUrl)));
+  connect(m_unrealProjectContext, SIGNAL(log(QString)), this,
+          SLOT(onLog(QString)));
+
+  ui->PageSelector->setCurrentIndex(0);
 }
 
 KPM::MainWindow::~MainWindow() { delete ui; }
 
 KPM::ProgramContext *KPM::MainWindow::getContext() {
   return m_programContext;
+}
+
+void KPM::MainWindow::onLog(QString log) {
+  statusBar()->showMessage(log);
 }
 
 void KPM::MainWindow::on_LocateProjectButton_clicked() {
@@ -71,6 +82,10 @@ void KPM::MainWindow::onUpdateUnrealProject(KPM::UnrealProjectContext *context) 
   // TODO
   // TODO
   // TODO
+}
+
+void KPM::MainWindow::onProjectPluginsTestSlot() {
+  m_unrealProjectContext->testFunc();
 }
 
 bool KPM::MainWindow::validateProjectDir(const QUrl &url) { return true; }

@@ -62,6 +62,10 @@ public:
 
 signals:
   void projectFileChanged(QUrl);
+  void log(QString);
+
+public slots:
+  void testFunc();
 
 private:
   QUrl m_projectFile;
