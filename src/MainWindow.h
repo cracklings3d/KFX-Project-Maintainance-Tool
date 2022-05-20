@@ -54,6 +54,7 @@ public slots:
   void onUpdateUnrealProject(KPM::UnrealProjectContext *desc);
 
   // Project plugins
+//  void onProjectPlugins
   void onProjectPluginsTestSlot();
 
 private:

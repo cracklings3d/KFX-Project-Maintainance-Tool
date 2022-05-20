@@ -7,9 +7,6 @@
 #include "UserConfView.h"
 #include "src/UnrealProjectContext.h"
 
-#include "ui_UnrealProjectPluginView.h"
-
-
 KPM::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);

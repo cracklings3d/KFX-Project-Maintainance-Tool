@@ -193,17 +193,27 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="KPM::UnrealProjectPluginView" name="tagPluginsDummy" native="true">
-              <layout class="QVBoxLayout" name="verticalLayout_4">
-               <item>
-                <widget class="QPushButton" name="pushButton">
-                 <property name="text">
-                  <string>PushButton</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="leftMargin">
+               <number>20</number>
+              </property>
+              <property name="topMargin">
+               <number>20</number>
+              </property>
+              <property name="rightMargin">
+               <number>20</number>
+              </property>
+              <property name="bottomMargin">
+               <number>20</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="text">
+                 <string>PushButton</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -265,17 +275,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KPM::UnrealProjectPluginView</class>
-   <extends>QWidget</extends>
-   <header>UnrealProjectPluginView.h</header>
-   <container>1</container>
-   <slots>
-    <signal>buttonPress()</signal>
-   </slots>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -295,34 +294,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>tagPluginsDummy</sender>
-   <signal>buttonPress()</signal>
-   <receiver>KPM::MainWindow</receiver>
-   <slot>onProjectPluginsTestSlot()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>705</x>
-     <y>400</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>804</x>
-     <y>40</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>KPM::MainWindow</receiver>
    <slot>onProjectPluginsTestSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>847</x>
-     <y>558</y>
+     <x>942</x>
+     <y>556</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1060</x>
-     <y>41</y>
+     <x>1089</x>
+     <y>43</y>
     </hint>
    </hints>
   </connection>
